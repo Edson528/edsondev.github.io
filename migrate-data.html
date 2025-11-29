@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Migração de Dados - GigaMoz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .migration-container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .migration-card {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .data-preview {
+      background: var(--glass);
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      max-height: 200px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .stat-item {
+      background: var(--glass);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="migration-container">
+    <div class="migration-card">
+      <h1>🔄 Migração de Dados</h1>
+      <p class="muted">Migre dados do LocalStorage para o Firebase Firestore</p>
+      
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number" id="productsCount">0</div>
+          <div class="muted">Produtos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="ordersCount">0</div>
+          <div class="muted">Pedidos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="usersCount">0</div>
+          <div class="muted">Usuários</div>
+        </div>
+      </div>
+
+      <div class="migration-card">
+        <h3>📦 Produtos</h3>
+        <div class="data-preview" id="productsPreview"></div>
+        <button class="btn" onclick="migrateProducts()" id="migrateProductsBtn">
+          🚀 Migrar Produtos para Firestore
+        </button>
+      </div>
+
+      <div class="migration-card">
+        <h3>📋 Pedidos</h3>
+        <div class="data-preview" id="ordersPreview"></div>
+        <button class="btn" onclick="migrateOrders()" id="migrateOrdersBtn">
+          🚀 Migrar Pedidos para Firestore
+        </button>
+      </div>
+
+      <div class="migration-card">
+        <h3>👥 Usuários (Admin)</h3>
+        <div class="form-group">
+          <label>Criar Usuário Admin Principal</label>
+          <input type="email" id="adminEmail" placeholder="email@admin.com" value="admin@gigamoz.com">
+          <input type="password" id="adminPassword" placeholder="Senha" value="gigamoz123">
+          <input type="text" id="adminName" placeholder="Nome" value="Administrador Principal">
+        </div>
+        <button class="btn" onclick="createAdminUser()" id="createAdminBtn">
+          👑 Criar Admin Principal
+        </button>
+      </div>
+
+      <div id="migrationStatus"></div>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>restore-compat.js"></script>
+  
+  <script src="js/firebase-config.js"></script>
+  <script src="js/migration.js"></script>
+</body>
+<div id="toastContainer"></div>
+</html>
